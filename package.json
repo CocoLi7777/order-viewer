@@ -1,0 +1,23 @@
+{
+  "name": "coding-test",
+  "version": "1.0.0",
+  "description": "coding test",
+  "main": "server.js",
+  "scripts": {
+    "start": "node ./server/server",
+    "dev": "nodemon server",
+    "db-seeder": "node ./database/seeder.js"
+  },
+  "author": "Coco Li",
+  "license": "ISC",
+  "dependencies": {
+    "csvtojson": "^2.0.10",
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1",
+    "mongoose": "^5.9.23",
+    "morgan": "^1.10.0"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.4"
+  }
+}
