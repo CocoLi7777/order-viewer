@@ -3,19 +3,35 @@ import SearchBar from './elements/SearchBar';
 import ReactTable from 'react-table';
 import 'react-table/react-table.css';
 import moment from 'moment';
-import useOrderFetch from './hook/useOrderFetch';
-import queryString from 'querystring';
 
 const Home = () => {
-  const [{ state, loading, error }, fetchOrders] = useOrderFetch();
+  const [state, setState] = useState({
+    orders: [],
+    page: 0,
+    pageSize: 5,
+  });
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(false);
 
-  const changePage = (index) => {
-    fetchOrders(`/api/v1/orders?page=${index}&limit=${state.limit}`);
+  const fetchOrders = async (page, pageSize) => {
+    try {
+      const result = await (
+        await fetch(`/api/v1/orders?page=${page}&limit=${pageSize}`)
+      ).json();
+      console.log(result);
+      setState({
+        totalPages: result.count / result.pagination.limit,
+        orders: result.orders,
+      });
+    } catch (error) {
+      setError(error);
+    }
+    setLoading(false);
   };
 
-  const changePageSize = (index) => {
-    fetchOrders(`/api/v1/orders?page=${state.currentPage}&limit=${index}`);
-  };
+  useEffect(() => {
+    fetchOrders(state.page, state.pageSize);
+  }, [state.page, state.pageSize]);
 
   return (
     <>
@@ -24,10 +40,10 @@ const Home = () => {
         data={state.orders}
         loading={loading}
         className="-striped -highlight pointer"
-        page={state.currentPage - 1}
-        pageSize={state.limit}
-        onPageChange={(index) => changePage(index + 1)}
-        onPageSizeChange={(index) => changePageSize(index)}
+        page={state.page}
+        pageSize={state.pageSize}
+        onPageChange={(page) => setState({ page: page + 1 })}
+        onPageSizeChange={(pageSize, page) => setState({ page, pageSize })}
         pages={state.totalPages}
         noDataText="No order found"
         manual
