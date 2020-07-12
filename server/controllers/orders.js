@@ -10,12 +10,11 @@ exports.getOrders = async (req, res, next) => {
     // Pagination
     const page = parseInt(req.query.page, 10) || 1;
     const limit = parseInt(req.query.limit, 10) || 5;
-    console.log('limit' + limit);
+
     const startIndex = (page - 1) * limit;
-    const endIndex = page * limit;
+
     const total = await Order.countDocuments();
     const maxPage = total / limit;
-    console.log(total);
 
     // march
     const match = req.query.match || '';
