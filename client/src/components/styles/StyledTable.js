@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 
 const StyledTable = styled.div`
+  margin-top: 1rem;
   padding: 1rem;
   table {
     border-spacing: 0;

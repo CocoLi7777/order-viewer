@@ -1,10 +1,10 @@
 import React, { useState, Component, useEffect, useMemo } from 'react';
-import ReactTable from 'react-table';
 import { useTable, usePagination } from 'react-table';
 import moment from 'moment';
-import SearchField from 'react-search-field';
+import SearchBar from './elements/SearchBar';
 import StyledTable from './styles/StyledTable';
 import Table from './elements/Table';
+import SearchField from 'react-search-field';
 
 const Home = () => {
   const columns = useMemo(
@@ -53,12 +53,32 @@ const Home = () => {
   const [pageSize, setPageSize] = useState(5);
   const [pageCount, setPageCount] = useState(0);
   const [error, setError] = useState(false);
+  const [searchItem, setSearchItem] = useState('');
 
   const fetchData = async ({ pageIndex, pageSize }) => {
     setLoading(true);
     try {
       const result = await (
         await fetch(`/api/v1/orders?page=${pageIndex}&limit=${pageSize}`)
+      ).json();
+      //console.log(result);
+      setData(result.orders);
+      setPage(result.pagination.currentPage);
+      setPageSize(result.pagination.limit);
+      setPageCount(result.count / result.pagination.limit);
+    } catch (error) {
+      setError(error);
+    }
+    setLoading(false);
+  };
+
+  const doSearch = async (value) => {
+    //setSearchItem(e.target.value);
+
+    setLoading(true);
+    try {
+      const result = await (
+        await fetch(`/api/v1/orders/search?value=${value}`)
       ).json();
       console.log(result);
       setData(result.orders);
@@ -74,6 +94,8 @@ const Home = () => {
   return (
     <>
       <h1>Order Viewer</h1>
+      <SearchBar callback={doSearch} />
+
       <StyledTable>
         <Table
           columns={columns}

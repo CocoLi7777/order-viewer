@@ -16,10 +16,6 @@ exports.getOrders = async (req, res, next) => {
     const total = await Order.countDocuments();
     const maxPage = total / limit;
 
-    // march
-    const match = req.query.match || '';
-    console.log(req.query.match);
-
     const orders = await Order.aggregate([
       {
         $lookup: {
@@ -59,9 +55,6 @@ exports.getOrders = async (req, res, next) => {
       {
         $limit: limit,
       },
-      /*{
-        $match: { order_name: match },
-      },*/
     ]);
 
     //Pagination result
@@ -73,4 +66,54 @@ exports.getOrders = async (req, res, next) => {
   } catch (err) {
     res.status(400).json({ success: false });
   }
+};
+
+exports.searchOrder = async (req, res, next) => {
+  //req.query.value
+
+  const orders = await Order.aggregate([
+    {
+      $lookup: {
+        from: 'customers',
+        localField: 'customer_id',
+        foreignField: 'user_id',
+        as: 'customer',
+      },
+    },
+    {
+      $lookup: {
+        from: 'customer_companies',
+        localField: 'customer.company_id',
+        foreignField: 'company_id',
+        as: 'company',
+      },
+    },
+    {
+      $lookup: {
+        from: 'order_items',
+        localField: 'id',
+        foreignField: 'order_id',
+        as: 'item',
+      },
+    },
+    {
+      $lookup: {
+        from: 'deliveries',
+        localField: 'item.id',
+        foreignField: 'order_item_id',
+        as: 'delivery',
+      },
+    },
+  ]);
+
+  const results = orders.filter((order) =>
+    order.order_name.includes(req.query.value)
+  );
+  const page = 1;
+  const limit = 5;
+  const total = await Order.countDocuments();
+  const pagination = { limit };
+  pagination.currentPage = page;
+
+  res.status(200).json({ count: total, pagination, orders: results });
 };
