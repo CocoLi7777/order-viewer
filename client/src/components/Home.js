@@ -1,103 +1,93 @@
-import React, { useState, Component, useEffect } from 'react';
-import SearchBar from './elements/SearchBar';
+import React, { useState, Component, useEffect, useMemo } from 'react';
 import ReactTable from 'react-table';
-import 'react-table/react-table.css';
+import { useTable, usePagination } from 'react-table';
+//import 'react-table/react-table.css';
 import moment from 'moment';
 import SearchField from 'react-search-field';
+import StyledTable from './styles/StyledTable';
+import Table from './elements/Table';
 
 const Home = () => {
-  const [state, setState] = useState({
-    orders: [],
-  });
-  const [loading, setLoading] = useState(true);
+  const columns = useMemo(
+    () => [
+      {
+        Header: 'Order name',
+        accessor: 'order_name',
+        width: 150,
+      },
+      {
+        Header: 'Customer Company',
+        accessor: 'company[0].company_name',
+      },
+      {
+        Header: 'Cusomter name',
+        accessor: 'customer[0].name',
+        width: 200,
+      },
+      {
+        Header: 'Order date',
+        id: 'created_at',
+        accessor: (d) => {
+          return moment(d.created_at).local().format('MMM Do, h:mm a');
+        },
+      },
+      {
+        Header: 'Delivered Amount',
+        id: 'item[0].quantity',
+        accessor: (d) => {
+          return moment(d.updated_at).local().format('YYYY/MM/DD HH:mm:ss');
+        },
+      },
+      {
+        Header: 'Total Amount',
+        id: 'delivery[0].id',
+        accessor: (d) => {
+          return moment(d.updated_at).local().format('YYYY/MM/DD HH:mm:ss');
+        },
+      },
+    ],
+    []
+  );
+
+  // We'll start our table without any data
+  const [data, setData] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const [page, setPage] = useState(0);
+  const [pageSize, setPageSize] = useState(5);
+  const [pageCount, setPageCount] = useState(0);
   const [error, setError] = useState(false);
 
-  const fetchOrders = async () => {
-    const { page, pageSize } = state;
+  const fetchData = async ({ pageIndex, pageSize }) => {
+    setLoading(true);
     try {
       const result = await (
-        await fetch(`/api/v1/orders?page=${page}&limit=${pageSize}`)
+        await fetch(`/api/v1/orders?page=${pageIndex}&limit=${pageSize}`)
       ).json();
       console.log(result);
-      setState({
-        totalPages: result.count / result.pagination.limit,
-        orders: result.orders,
-      });
+      setData(result.orders);
+      setPage(result.pagination.currentPage);
+      setPageSize(result.pagination.limit);
+      setPageCount(result.count / result.pagination.limit);
     } catch (error) {
       setError(error);
     }
     setLoading(false);
   };
-  const changePage = (page) => {
-    setState({ page: page });
-    console.log();
-    fetchOrders();
-  };
-  const changePagesize = (pageSize) => {
-    setState({ pageSize });
-    console.log(state.pageSize);
-    fetchOrders();
-  };
-
-  useEffect(() => {
-    fetchOrders();
-  }, [state.page, state.pageSize]);
 
   return (
     <>
       <h1>Order Viewer</h1>
-      <SearchField placeholder="Search order" onChange={onchange} />
-      <ReactTable
-        data={state.orders}
-        loading={loading}
-        className="-striped -highlight pointer"
-        page={state.page}
-        pageSize={state.pageSize}
-        onPageChange={(page) => changePage(page)}
-        //onPageChange={(page) => setState({ page: page + 1 }, fetchOrders())}
-        onPageSizeChange={(pageSize) => changePagesize(pageSize)}
-        //onPageSizeChange={(pageSize) => setState({ pageSize }, fetchOrders())}
-        pages={state.totalPages}
-        noDataText="No order found"
-        manual
-        columns={[
-          {
-            Header: 'Order name',
-            accessor: 'order_name',
-            width: 150,
-          },
-          {
-            Header: 'Customer Company',
-            accessor: 'company[0].company_name',
-          },
-          {
-            Header: 'Cusomter name',
-            accessor: 'customer[0].name',
-            width: 200,
-          },
-          {
-            Header: 'Order date',
-            id: 'created_at',
-            accessor: (d) => {
-              return moment(d.created_at).local().format('MMM Do, h:mm a');
-            },
-          },
-          {
-            Header: 'Delivered Amount',
-            id: 'created_at',
-            accessor: (d) => {
-              return moment(d.updated_at).local().format('YYYY/MM/DD HH:mm:ss');
-            },
-          },
-          {
-            Header: 'Total Amount',
-            id: 'created_at',
-            accessor: (d) => {
-              return moment(d.updated_at).local().format('YYYY/MM/DD HH:mm:ss');
-            },
-          },
-        ]}
-      />
+      <StyledTable>
+        <Table
+          columns={columns}
+          data={data}
+          fetchData={fetchData}
+          loading={loading}
+          page={page}
+          pageSize={pageSize}
+          pageCount={pageCount}
+        />
+      </StyledTable>
     </>
   );
 };
