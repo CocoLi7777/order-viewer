@@ -1,7 +1,5 @@
 import React, { useState, Component, useEffect } from 'react';
-//import ReactTable from 'react-table';
 import { useTable, usePagination } from 'react-table';
-//import 'react-table/react-table.css';
 import moment from 'moment';
 
 const Table = ({
@@ -25,28 +23,22 @@ const Table = ({
     nextPage,
     previousPage,
     setPageSize,
-    // Get the state from the instance
     state: { pageIndex, pageSize },
   } = useTable(
     {
       columns,
       data,
-      initialState: { pageIndex: 0 }, // Pass our hoisted table state
-      manualPagination: true, // Tell the usePagination
-      // hook that we'll handle our own data fetching
-      // This means we'll also have to provide our own
-      // pageCount.
+      initialState: { pageIndex: 0 },
+      manualPagination: true,
       pageCount: controlledPageCount,
     },
     usePagination
   );
 
-  // Listen for changes in pagination and use the state to fetch our new data
   useEffect(() => {
     fetchData({ pageIndex, pageSize });
-  }, [pageIndex, pageSize]); //fetchData, pageIndex, pageSize
+  }, [pageIndex, pageSize]);
 
-  // Render the UI for your table
   return (
     <>
       <table {...getTableProps()}>
@@ -83,7 +75,6 @@ const Table = ({
           })}
           <tr>
             {loading ? (
-              // Use our custom loading state to show a loading indicator
               <td colSpan="10000">Loading...</td>
             ) : (
               <td colSpan="10000">
@@ -94,10 +85,7 @@ const Table = ({
           </tr>
         </tbody>
       </table>
-      {/* 
-        Pagination can be built however you'd like. 
-        This is just a very basic UI implementation:
-      */}
+
       <div className="pagination">
         <button onClick={() => gotoPage(0)} disabled={!canPreviousPage}>
           {'<<'}

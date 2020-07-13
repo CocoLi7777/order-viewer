@@ -1,7 +1,6 @@
 import React, { useState, Component, useEffect, useMemo } from 'react';
 import ReactTable from 'react-table';
 import { useTable, usePagination } from 'react-table';
-//import 'react-table/react-table.css';
 import moment from 'moment';
 import SearchField from 'react-search-field';
 import StyledTable from './styles/StyledTable';
@@ -48,8 +47,6 @@ const Home = () => {
     ],
     []
   );
-
-  // We'll start our table without any data
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(false);
   const [page, setPage] = useState(0);
