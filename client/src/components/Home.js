@@ -3,17 +3,17 @@ import SearchBar from './elements/SearchBar';
 import ReactTable from 'react-table';
 import 'react-table/react-table.css';
 import moment from 'moment';
+import SearchField from 'react-search-field';
 
 const Home = () => {
   const [state, setState] = useState({
     orders: [],
-    page: 0,
-    pageSize: 5,
   });
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(false);
 
-  const fetchOrders = async (page, pageSize) => {
+  const fetchOrders = async () => {
+    const { page, pageSize } = state;
     try {
       const result = await (
         await fetch(`/api/v1/orders?page=${page}&limit=${pageSize}`)
@@ -28,22 +28,35 @@ const Home = () => {
     }
     setLoading(false);
   };
+  const changePage = (page) => {
+    setState({ page: page });
+    console.log();
+    fetchOrders();
+  };
+  const changePagesize = (pageSize) => {
+    setState({ pageSize });
+    console.log(state.pageSize);
+    fetchOrders();
+  };
 
   useEffect(() => {
-    fetchOrders(state.page, state.pageSize);
+    fetchOrders();
   }, [state.page, state.pageSize]);
 
   return (
     <>
       <h1>Order Viewer</h1>
+      <SearchField placeholder="Search order" onChange={onchange} />
       <ReactTable
         data={state.orders}
         loading={loading}
         className="-striped -highlight pointer"
         page={state.page}
         pageSize={state.pageSize}
-        onPageChange={(page) => setState({ page: page + 1 })}
-        onPageSizeChange={(pageSize, page) => setState({ page, pageSize })}
+        onPageChange={(page) => changePage(page)}
+        //onPageChange={(page) => setState({ page: page + 1 }, fetchOrders())}
+        onPageSizeChange={(pageSize) => changePagesize(pageSize)}
+        //onPageSizeChange={(pageSize) => setState({ pageSize }, fetchOrders())}
         pages={state.totalPages}
         noDataText="No order found"
         manual
