@@ -1,10 +1,8 @@
-import React, { useState, Component, useEffect, useMemo } from 'react';
-import { useTable, usePagination } from 'react-table';
+import React, { useState, useEffect, useMemo } from 'react';
 import moment from 'moment';
 import SearchBar from './elements/SearchBar';
 import StyledTable from './styles/StyledTable';
 import Table from './elements/Table';
-import SearchField from 'react-search-field';
 
 const Home = () => {
   const columns = useMemo(
@@ -31,17 +29,21 @@ const Home = () => {
         },
       },
       {
-        Header: 'Delivered Amount',
-        id: 'item[0].quantity',
+        Header: 'Delivered Quantity',
+        id: 'delivery',
         accessor: (d) => {
-          return moment(d.updated_at).local().format('YYYY/MM/DD HH:mm:ss');
+          return d.delivery.reduce((acc, item) => {
+            return (acc += parseInt(item.delivered_quantity));
+          }, 0);
         },
       },
       {
         Header: 'Total Amount',
-        id: 'delivery[0].id',
+        id: 'item',
         accessor: (d) => {
-          return moment(d.updated_at).local().format('YYYY/MM/DD HH:mm:ss');
+          return d.item.reduce((acc, item) => {
+            return (acc += parseInt(item.price_per_unit * item.quantity));
+          }, 0);
         },
       },
     ],
@@ -61,11 +63,23 @@ const Home = () => {
       const result = await (
         await fetch(`/api/v1/orders?page=${pageIndex}&limit=${pageSize}`)
       ).json();
-      //console.log(result);
+
       setData(result.orders);
       setPage(result.pagination.currentPage);
       setPageSize(result.pagination.limit);
       setPageCount(result.count / result.pagination.limit);
+
+      const totalAmount = result.orders.reduce((total, order) => {
+        return (total += order.item.reduce((acc, item) => {
+          return (acc += parseInt(item.price_per_unit * item.quantity));
+        }, 0));
+      }, 0);
+
+      const deliveryAmount = result.orders.reduce((total, order) => {
+        return (total += order.delivery.reduce((acc, item) => {
+          return (acc += parseInt(item.delivered_quantity));
+        }, 0));
+      }, 0);
     } catch (error) {
       setError(error);
     }
@@ -73,8 +87,6 @@ const Home = () => {
   };
 
   const doSearch = async (value) => {
-    //setSearchItem(e.target.value);
-
     setLoading(true);
     try {
       const result = await (
@@ -85,6 +97,18 @@ const Home = () => {
       setPage(result.pagination.currentPage);
       setPageSize(result.pagination.limit);
       setPageCount(result.count / result.pagination.limit);
+
+      const totalAmount = result.orders.reduce((total, order) => {
+        return (total += order.item.reduce((acc, item) => {
+          return (acc += parseInt(item.price_per_unit * item.quantity));
+        }, 0));
+      }, 0);
+
+      const deliveryAmount = result.orders.reduce((total, order) => {
+        return (total += order.delivery.reduce((acc, item) => {
+          return (acc += parseInt(item.delivered_quantity));
+        }, 0));
+      }, 0);
     } catch (error) {
       setError(error);
     }

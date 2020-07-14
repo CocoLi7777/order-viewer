@@ -1,12 +1,16 @@
 import styled from 'styled-components';
 
 export const StyledSearchBar = styled.div`
-  width: 100%;
+  width: 50%;
   height: 105px;
   background: #1c1c1c;
   padding: 25px 20px 0px 20px;
   box-sizing: border-box;
   color: #fff;
+
+  @media screen and (max-width: 720px) {
+    font-size: 28px;
+  }
 `;
 
 export const StyledSearchBarContent = styled.div`
