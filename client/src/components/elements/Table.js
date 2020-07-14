@@ -1,4 +1,4 @@
-import React, { useState, Component, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { useTable, usePagination } from 'react-table';
 
 const Table = ({
