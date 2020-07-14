@@ -58,7 +58,7 @@ Import all data: node seeder -i
 ### Additions
 1. I used MongoDB to setup database but still find it's a little hard for NoSQL to join tables, even I used aggregate, lookup and virtual field of MongoDB to solve this problem,but I still got the delivery amount unsovled.So I used the data of delivery number instead of delivery amount. I'd like to use Postgres and SQL query to refactor later on.
 
-2. I'd like to use Bulma to have better CSS design and UI appearance for table. But I already used react-table and CSS format included.
+2. I'd like to use Bulma to have better CSS design and UI appearance for table.
   
 
 
