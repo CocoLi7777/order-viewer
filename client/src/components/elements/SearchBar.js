@@ -24,6 +24,7 @@ const SearchBar = ({ callback }) => {
     <StyledSearchBar>
       <StyledSearchBarContent>
         <input
+          name="search"
           type="text"
           placeholder="Search order"
           onChange={searchItem}
