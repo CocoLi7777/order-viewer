@@ -5,7 +5,8 @@ const connectDB = require('../database/db');
 const cors = require('cors');
 const path = require('path');
 
-dotenv.config({ path: './config/config.env' });
+//dotenv.config({ path: './config/config.env' });
+require('dotenv').config();
 
 connectDB();
 
