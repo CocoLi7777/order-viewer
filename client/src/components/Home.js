@@ -3,6 +3,7 @@ import moment from 'moment';
 import SearchBar from './elements/SearchBar';
 import StyledTable from './styles/StyledTable';
 import Table from './elements/Table';
+import Spinner from './elements/Spinner';
 
 const Home = () => {
   const columns = useMemo(
@@ -55,7 +56,9 @@ const Home = () => {
   const [pageSize, setPageSize] = useState(5);
   const [pageCount, setPageCount] = useState(0);
   const [error, setError] = useState(false);
-  const [searchItem, setSearchItem] = useState('');
+
+  if (error) return <div>Something wrong...</div>;
+  if (!data) return <Spinner />;
 
   const fetchData = async ({ pageIndex, pageSize }) => {
     setLoading(true);
@@ -68,18 +71,6 @@ const Home = () => {
       setPage(result.pagination.currentPage);
       setPageSize(result.pagination.limit);
       setPageCount(result.count / result.pagination.limit);
-
-      const totalAmount = result.orders.reduce((total, order) => {
-        return (total += order.item.reduce((acc, item) => {
-          return (acc += parseInt(item.price_per_unit * item.quantity));
-        }, 0));
-      }, 0);
-
-      const deliveryAmount = result.orders.reduce((total, order) => {
-        return (total += order.delivery.reduce((acc, item) => {
-          return (acc += parseInt(item.delivered_quantity));
-        }, 0));
-      }, 0);
     } catch (error) {
       setError(error);
     }
@@ -97,18 +88,6 @@ const Home = () => {
       setPage(result.pagination.currentPage);
       setPageSize(result.pagination.limit);
       setPageCount(result.count / result.pagination.limit);
-
-      const totalAmount = result.orders.reduce((total, order) => {
-        return (total += order.item.reduce((acc, item) => {
-          return (acc += parseInt(item.price_per_unit * item.quantity));
-        }, 0));
-      }, 0);
-
-      const deliveryAmount = result.orders.reduce((total, order) => {
-        return (total += order.delivery.reduce((acc, item) => {
-          return (acc += parseInt(item.delivered_quantity));
-        }, 0));
-      }, 0);
     } catch (error) {
       setError(error);
     }

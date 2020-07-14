@@ -57,13 +57,6 @@ exports.getOrders = async (req, res, next) => {
       },
     ]);
 
-    /*const totalAmount = orders.item.reduce((acc, item) => {
-      return (acc += item.price_per_unit * quantity);
-    }, 0);
-    const deliveryAmount = orders.delivery.reduce((acc, item) => {
-      return (acc += item.price_per_unit * delivered_quantity);
-    }, 0);*/
-    //Pagination result
     const pagination = { limit };
 
     pagination.currentPage = page;
