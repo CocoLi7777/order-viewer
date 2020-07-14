@@ -1,16 +1,12 @@
 import styled from 'styled-components';
 
 export const StyledSearchBar = styled.div`
-  width: 50%;
   height: 105px;
   background: white;
   padding: 25px 20px 0px 20px;
   box-sizing: border-box;
   color: white;
-
-  @media screen and (max-width: 720px) {
-    font-size: 28px;
-  }
+  width: 50%;
 `;
 
 export const StyledSearchBarContent = styled.div`
@@ -49,8 +45,11 @@ export const StyledSearchBarContent = styled.div`
       outline: none;
     }
 
-    @media screen and (max-width: 720px) {
+    @media screen and (max-width: 960px) {
       font-size: 28px;
+    }
+    @media screen and (max-width: 700px) {
+      font-size: 22px;
     }
   }
 `;

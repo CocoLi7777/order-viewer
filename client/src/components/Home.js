@@ -1,7 +1,8 @@
-import React, { useState, useEffect, useMemo } from 'react';
+import React, { useState, useMemo } from 'react';
 import moment from 'moment';
 import SearchBar from './elements/SearchBar';
 import StyledTable from './styles/StyledTable';
+import GlobalStyle from './styles/GlobalStyle';
 import Table from './elements/Table';
 import Spinner from './elements/Spinner';
 
@@ -96,6 +97,7 @@ const Home = () => {
 
   return (
     <>
+      <GlobalStyle />
       <h1>Order Viewer</h1>
       <SearchBar callback={doSearch} />
 

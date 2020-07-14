@@ -1,6 +1,4 @@
 const Order = require('../models/Order');
-const Customer = require('../models/Customer');
-const { query } = require('express');
 
 exports.getOrders = async (req, res, next) => {
   try {
@@ -10,11 +8,8 @@ exports.getOrders = async (req, res, next) => {
     // Pagination
     const page = parseInt(req.query.page, 10) || 1;
     const limit = parseInt(req.query.limit, 10) || 5;
-
     const startIndex = (page - 1) * limit;
-
     const total = await Order.countDocuments();
-    const maxPage = total / limit;
 
     const orders = await Order.aggregate([
       {
@@ -58,7 +53,6 @@ exports.getOrders = async (req, res, next) => {
     ]);
 
     const pagination = { limit };
-
     pagination.currentPage = page;
 
     res.status(200).json({ count: total, pagination, orders: orders });

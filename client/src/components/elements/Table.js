@@ -1,6 +1,5 @@
 import React, { useState, Component, useEffect } from 'react';
 import { useTable, usePagination } from 'react-table';
-import moment from 'moment';
 
 const Table = ({
   columns,

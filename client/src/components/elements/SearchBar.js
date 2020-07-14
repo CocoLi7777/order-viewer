@@ -6,15 +6,12 @@ import {
 
 const SearchBar = ({ callback }) => {
   const [state, setState] = useState('');
-  // useRef() to keep the mutable value like setTimeout and setInterval
   const timeOut = useRef();
 
   const searchItem = (e) => {
-    //console.log(e.target.value);
     setState(e.target.value);
     clearTimeout(timeOut.current);
 
-    //console.log(state);
     timeOut.current = setTimeout(() => {
       callback(state);
     }, 1000);

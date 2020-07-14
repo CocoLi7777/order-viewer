@@ -1,9 +1,3 @@
-describe('Order Page Test', function () {
-  it('successfully loads', function () {
-    cy.request('http://localhost:5000/api/v1/orders?page=0&&limit=5');
-  });
-});
-
 describe('Order Page Test with page number and page size', function () {
   it('successfully loads', function () {
     cy.visit('http://localhost:3000');
