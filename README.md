@@ -1,5 +1,4 @@
-### Order-viewer
-
+# Order-viewer
 This project has been built with the MERN stack along with styled components for CSS, cypress for end-to-end test.
 
 ## Demo
@@ -13,24 +12,24 @@ https://order-viewer.herokuapp.com/
 4.React - Install react using creat-react-app.
 
 ## Quick Start
-##Install dependencies for server
+Install dependencies for server
 npm install
 
-# Install dependencies for client
+Install dependencies for client
 npm run client-install
 
-# Running locally
+## Running locally
 
-# Run the client & server with concurrently
+Run the client & server with concurrently
 npm run dev
 
-# Run the Express server only
+Run the Express server only
 npm run server
 
-# Run the React client only
+Run the React client only
 npm run client
 
-# Server runs on http://localhost:5000 and client on http://localhost:3000
+Server runs on http://localhost:5000 and client on http://localhost:3000
 
 ## Running test
 1. run npm run dev first and keep the program running
@@ -38,22 +37,21 @@ npm run client
 
 ## Database Seeder
 To seed the database with data of orders, customers, companies, items and develiveries from the ".csv" format, run
-# Destroy all data
+Destroy all data
 node seeder -d
 
-# Import all data
+Import all data
 node seeder -i
 
 ## Project Roadmap
 
-# Purpose and Implementation details
+### Purpose and Implementation details
 1.Demonstrate using MongoDB to query multiple tables and to accomplish a join.
 2.Build an API for the front end to comsume, which can be easily integrated and extended using Node.js and Express.
 3.Creating and running single-page application using React.js and hooks(useState,useEffect,useMemo,useRef). It offers react-table, styled-components to make implementation easier.
 
-# Additions
-1.I used MongoDB to setup database but still find it's a little hard for NoSQL to join tables, even I used aggregate, lookup and virtual field of MongoDB to solve this problem,
-  but I still got the delivery amount unsovled.So I used the data of delivery number instead of delivery amount. I'd like to use Postgres and SQL query to refactor later on.
+### Additions
+1.I used MongoDB to setup database but still find it's a little hard for NoSQL to join tables, even I used aggregate, lookup and virtual field of MongoDB to solve this problem,but I still got the delivery amount unsovled.So I used the data of delivery number instead of delivery amount. I'd like to use Postgres and SQL query to refactor later on.
 2.I'd like to use Bulma to have better CSS design and UI appearance for table. But I already used react-table and CSS format included.
   
 
