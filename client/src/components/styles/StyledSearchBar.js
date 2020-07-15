@@ -6,7 +6,7 @@ export const StyledSearchBar = styled.div`
   padding: 25px 20px 0px 20px;
   box-sizing: border-box;
   color: white;
-  width: 50%;
+  width: 30%;
 `;
 
 export const StyledSearchBarContent = styled.div`
@@ -49,7 +49,7 @@ export const StyledSearchBarContent = styled.div`
       font-size: 28px;
     }
     @media screen and (max-width: 700px) {
-      font-size: 22px;
+      display: none;
     }
   }
 `;
