@@ -44,7 +44,7 @@ Server runs on http://localhost:5000 and client on http://localhost:3000
 
 2. npm run test-e2e to lauch the test
 
-[![Test video](https://youtu.be/ulREWSvBnq4)]
+![MyVideo](https://youtu.be/ulREWSvBnq4)
 
 ## Database Seeder
 
