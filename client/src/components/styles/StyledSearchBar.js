@@ -1,29 +1,30 @@
 import styled from 'styled-components';
 
 export const StyledSearchBar = styled.div`
-  height: 105px;
+  margin: 0 auto;
+  height: 125px;
   background: white;
   padding: 25px 20px 0px 20px;
   box-sizing: border-box;
   color: white;
-  width: 30%;
+  width: 40%;
 `;
 
 export const StyledSearchBarContent = styled.div`
   max-width: 1280px;
   width: 100%;
   height: 55px;
-  background: #353535;
+  background: #dcdde1;
   margin: 0 auto;
   border-radius: 40px;
   position: relative;
-  color: #fff;
+  color: whtie;
 
   .fa-search {
     position: absolute;
     left: 20px;
     top: 12px;
-    color: #fff;
+    color: black;
     z-index: 1000;
   }
 
@@ -38,7 +39,7 @@ export const StyledSearchBarContent = styled.div`
     width: 95%;
     background: transparent;
     height: 40px;
-    color: #fff;
+    color: black;
     box-sizing: border-box;
 
     :focus {

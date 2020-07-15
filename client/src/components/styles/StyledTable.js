@@ -1,11 +1,16 @@
 import styled from 'styled-components';
 
 const StyledTable = styled.div`
-  margin-top: 1rem;
+  margin: 0 auto;
   padding: 1rem;
+  font-family: --apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen,
+    Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
   table {
+    margin: 0 auto;
     border-spacing: 0;
     border: 1px solid black;
+    font-size: 1rem;
+
     tr {
       :last-child {
         td {
@@ -25,7 +30,9 @@ const StyledTable = styled.div`
     }
   }
   .pagination {
+    text-align: center;
     padding: 0.5rem;
+    font-size: 1.1rem;
   }
 `;
 

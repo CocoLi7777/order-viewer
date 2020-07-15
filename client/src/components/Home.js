@@ -5,6 +5,7 @@ import StyledTable from './styles/StyledTable';
 import GlobalStyle from './styles/GlobalStyle';
 import Table from './elements/Table';
 import Spinner from './elements/Spinner';
+import Header from './elements/Header';
 
 const Home = () => {
   const columns = useMemo(
@@ -98,7 +99,8 @@ const Home = () => {
   return (
     <>
       <GlobalStyle />
-      <h1>Order Viewer</h1>
+
+      <Header />
       <SearchBar callback={doSearch} />
 
       <StyledTable>

@@ -23,7 +23,7 @@ const SearchBar = ({ callback }) => {
         <input
           name="search"
           type="text"
-          placeholder="Search order"
+          placeholder="Search order..."
           onChange={searchItem}
           value={state}
         />
