@@ -46,6 +46,8 @@ Server runs on http://localhost:5000 and client on http://localhost:3000
 
 ![Test Demo]](https://youtu.be/ulREWSvBnq4)
 
+<iframe width="560" height="315" src="https://www.youtube.com/embed/ulREWSvBnq4" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
 ## Database Seeder
 
 To seed the database with data of orders, customers, companies, items and develiveries from the ".csv" format, run
