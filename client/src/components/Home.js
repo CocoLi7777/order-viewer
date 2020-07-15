@@ -64,6 +64,7 @@ const Home = () => {
 
   const fetchData = async ({ pageIndex, pageSize }) => {
     setLoading(true);
+    setError(false);
     try {
       const result = await (
         await fetch(`/api/v1/orders?page=${pageIndex}&limit=${pageSize}`)
@@ -81,6 +82,7 @@ const Home = () => {
 
   const doSearch = async (value) => {
     setLoading(true);
+    setError(false);
     try {
       const result = await (
         await fetch(`/api/v1/orders/search?value=${value}`)
