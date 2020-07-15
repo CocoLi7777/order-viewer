@@ -44,7 +44,7 @@ Server runs on http://localhost:5000 and client on http://localhost:3000
 
 2. npm run test-e2e to lauch the test
 
-<iframe  title="YouTube video player" width="480" height="390" src="https://youtu.be/ulREWSvBnq4" frameborder="0" allowfullscreen></iframe>
+[![Test video](https://youtu.be/ulREWSvBnq4)]
 
 ## Database Seeder
 
