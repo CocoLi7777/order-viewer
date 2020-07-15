@@ -43,6 +43,8 @@ Server runs on http://localhost:5000 and client on http://localhost:3000
 1. run npm run dev first and keep the program running
 
 2. npm run test-e2e to lauch the test
+ 
+ ### Please click the image below to run the testing Demo:
 
 [![Test Demo](http://img.youtube.com/vi/ulREWSvBnq4/0.jpg)](https://www.youtube.com/embed/ulREWSvBnq4)
 
