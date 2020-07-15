@@ -59,6 +59,8 @@ Import all data: node seeder -i
 1. I used MongoDB to setup database but still find it's a little hard for NoSQL to join tables, even I used aggregate, lookup and virtual field of MongoDB to solve this problem,but I still got the delivery amount unsovled.So I used the data of delivery number instead of delivery amount. I'd like to use Postgres and SQL query to refactor later on.
 
 2. I'd like to use Bulma to have better CSS design and UI appearance for table.
+
+3. Currently the orders can be searched by numbers of order name, as "001-","002-". I'm still exploring to use Fuzzy Search for searching job, which can be searched by any character or number.
   
 
 
